@@ -39,9 +39,13 @@ public class TempClass {
 
     Set<Tag> tags = new HashSet<>();
 
-    Person person1 = new Person(nric1, company1, section1, rank1, name1, phone1, tags);
-    Person person2 = new Person(nric2, company2, section2, rank2, name2, phone2, tags);
-    Person person3 = new Person(nric3, company3, section3, rank3, name3, phone3, tags);
+    Password password1 = new Password("ABV");
+    Password password2 = new Password("ABC");
+    Password password3 = new Password("FMF");
+
+    Person person1 = new Person(nric1, company1, section1, rank1, name1, phone1, tags, password1);
+    Person person2 = new Person(nric2, company2, section2, rank2, name2, phone2, tags, password2);
+    Person person3 = new Person(nric3, company3, section3, rank3, name3, phone3, tags, password3);
 
     public List<Person> persons = new ArrayList<>();
 

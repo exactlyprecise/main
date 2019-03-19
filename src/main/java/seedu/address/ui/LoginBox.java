@@ -42,10 +42,6 @@ public class LoginBox {
     }
 
     private void findAccount() {
-        String test1 = textField1.getText();
-        System.out.println("Text field 1 is " + test1);
-        String test2 = textField2.getText();
-        System.out.println("TextField2 is " + test2);
         if (textField1.getText().equals("General") && textField2.getText().equals("General")) {
             userType = UserType.GENERAL;
             window.close();

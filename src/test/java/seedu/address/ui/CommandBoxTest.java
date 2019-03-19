@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
+import seedu.address.commons.core.UserType;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -21,18 +22,19 @@ public class CommandBoxTest extends GuiUnitTest {
     private ArrayList<String> defaultStyleOfCommandBox;
     private ArrayList<String> errorStyleOfCommandBox;
     private final ArrayList<String> history = new ArrayList<>();
+    private final UserType userType1 = UserType.ADMIN;
 
     private CommandBoxHandle commandBoxHandle;
 
     @Before
     public void setUp() {
-        CommandBox commandBox = new CommandBox(commandText -> {
+        CommandBox commandBox = new CommandBox((commandText, userType) -> {
             history.add(commandText);
             if (commandText.equals(COMMAND_THAT_SUCCEEDS)) {
                 return new CommandResult("Command successful");
             }
             throw new CommandException("Command failed");
-        }, history);
+        }, userType1, history);
         commandBoxHandle = new CommandBoxHandle(getChildNode(commandBox.getRoot(),
                 CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         uiPartRule.setUiPart(commandBox);

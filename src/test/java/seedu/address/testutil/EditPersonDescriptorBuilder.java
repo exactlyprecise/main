@@ -5,9 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -60,6 +58,23 @@ public class EditPersonDescriptorBuilder {
         descriptor.setTags(tagSet);
         return this;
     }
+
+    /**
+     * Sets the {@code NRIC} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withNRIC(String nric) {
+        descriptor.setNric(new Nric(nric));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Password} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withPassword(String password) {
+        descriptor.setPassword(new Password(password));
+        return this;
+    }
+
 
     public EditPersonDescriptor build() {
         return descriptor;

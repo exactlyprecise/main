@@ -25,13 +25,14 @@ public class Person {
     private final Rank rank;
     private final Phone phone;
     private final Set<Tag> tags = new HashSet<>();
+    private final Password password;
 
     /**
      * Every field must be present and not null.
      */
 
     public Person(Nric nric, Company company, Section section, Rank rank, Name name,
-                  Phone phone, Set<Tag> tags) {
+                  Phone phone, Set<Tag> tags, Password password) {
         requireAllNonNull(nric, company, section, rank, name, phone, tags);
         this.nric = nric;
         this.company = company;
@@ -40,6 +41,7 @@ public class Person {
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
+        this.password = password;
     }
 
     public Nric getNric() { return nric; }
@@ -57,6 +59,8 @@ public class Person {
     public Phone getPhone() {
         return phone;
     }
+
+    public Password getPassword() {return password; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -100,14 +104,15 @@ public class Person {
                 && otherPerson.getRank().equals(getRank())
                 && otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getPassword().equals(getPassword());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
 
-        return Objects.hash(nric, company, section, rank, name, phone, tags);
+        return Objects.hash(nric, company, section, rank, name, phone, tags, password);
     }
 
     @Override

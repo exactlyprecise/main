@@ -18,6 +18,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Password;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -33,6 +34,7 @@ class JsonAdaptedPerson {
     private final String name;
     private final String phone;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String password;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -42,7 +44,8 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("nric") String nric, @JsonProperty("company") String company,
                              @JsonProperty("section") String section, @JsonProperty("rank") String rank,
                              @JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                             @JsonProperty("password") String password) {
         this.nric = nric;
         this.company = company;
         this.section = section;
@@ -52,6 +55,7 @@ class JsonAdaptedPerson {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.password = password;
     }
 
     /**
@@ -68,6 +72,7 @@ class JsonAdaptedPerson {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        password = source.getPassword().value;
     }
 
     /**
@@ -129,9 +134,18 @@ class JsonAdaptedPerson {
         }
         final Phone modelPhone = new Phone(phone);
 
+        if (password == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Password.class.getSimpleName()));
+        }
+        if (!Password.isValidPassword(password)) {
+            throw new IllegalValueException(Password.MESSAGE_CONSTRAINTS);
+        }
+        final Password modelPassword = new Password(password);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelNric, modelCompany, modelSection, modelRank, modelName, modelPhone, modelTags);
+        return new Person(modelNric, modelCompany, modelSection, modelRank, modelName,
+                modelPhone, modelTags, modelPassword);
     }
 
 }

@@ -148,4 +148,13 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    public static Password parsePassword(String password) throws ParseException {
+        requireNonNull(password);
+        String trimmedPassword = password.trim();
+        if (!Password.isValidPassword(trimmedPassword)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return new Password(trimmedPassword);
+    }
 }

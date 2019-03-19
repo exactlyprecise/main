@@ -23,7 +23,8 @@ public class AddCommand extends Command{
             + PREFIX_RANK + "RANK "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG] "
+            + PREFIX_PASSWORD + "PASSWORD ... \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NRIC + "S9012345L "
             + PREFIX_COMPANY + "Echo "
@@ -31,7 +32,8 @@ public class AddCommand extends Command{
             + PREFIX_RANK + "CPL "
             + PREFIX_NAME + "Brandon Foo "
             + PREFIX_PHONE + "99899989 "
-            + PREFIX_TAG + "injury";
+            + PREFIX_TAG + "injury "
+            + PREFIX_PASSWORD + "abcde";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";

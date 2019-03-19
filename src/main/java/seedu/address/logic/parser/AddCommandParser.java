@@ -24,10 +24,10 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NRIC, PREFIX_COMPANY, PREFIX_SECTION,
-                        PREFIX_RANK, PREFIX_NAME, PREFIX_PHONE, PREFIX_TAG);
+                        PREFIX_RANK, PREFIX_NAME, PREFIX_PHONE, PREFIX_TAG, PREFIX_PASSWORD);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_COMPANY, PREFIX_SECTION,
-                PREFIX_RANK, PREFIX_NAME, PREFIX_PHONE)
+                PREFIX_RANK, PREFIX_NAME, PREFIX_PHONE, PREFIX_PASSWORD)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -40,8 +40,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Password password = ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get());
 
-        Person person = new Person(nric, company, section, rank, name, phone, tagList);
+        Person person = new Person(nric, company, section, rank, name, phone, tagList, password);
 
         return new AddCommand(person);
     }
